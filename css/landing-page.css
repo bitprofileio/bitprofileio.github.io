@@ -15,7 +15,7 @@ body {
   /*background: linear-gradient(0deg, #19242b 0%, #0088dd4f 100%);*/
   /*background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(29,133,253,1) 50%, rgba(69,252,239,1) 100%);*/
   /*background: radial-gradient(circle, rgba(27,86,213,0.5984768907563025) 0%, rgba(191,181,218,0) 52%, rgba(148,187,233,0) 100%);*/
-  background: radial-gradient(circle, rgba(35,136,244,0.598) 0%, rgba(80,33,207,0.175) 52%);
+  /*background: radial-gradient(circle, rgba(35,136,244,0.598) 0%, rgba(80,33,207,0.175) 52%);*/
   /*background: radial-gradient(circle, rgba(35,136,244,0.654499299719888) 0%, rgba(80,33,207,0.21192226890756305) 52%);*/
   /*background: radial-gradient(circle, rgba(35,136,244,0.654499299719888) 0%, rgba(80,33,207,0.1250875350140056) 52%);*/
   /*background: radial-gradient(circle, rgba(35,136,244,0.6284768907563025) 0%, rgba(80,33,207,0.17550770308123254) 45%);*/
@@ -33,7 +33,7 @@ body {
 }
 
 #background2 {
-  background: radial-gradient(circle, rgba(35,136,244,0.198) 0%, rgba(80,33,207,0.05) 52%);
+  background: radial-gradient(circle, rgba(35,136,244,0.198) 0%, rgba(80,33,207,0.14) 52%);
   position: fixed;
   width: 100%;
   height: 120%;
@@ -52,6 +52,11 @@ h6 {
   font-weight: 700;
 }
 
+body {
+  background: black;
+  font-family: "Varela", sans-serif;
+}
+
 #logo-container {
   display: flex; 
   justify-content: center;
@@ -67,14 +72,33 @@ h6 {
 }
 
 #logo {
-  font-size: 30px;
+  font-size: 20px;
   color: #FFF;
   font-style: bold;
 }
 
 @media (min-width: 768px) {
   #logo {
-    font-size: 40px;
+    font-size: 25px;
+  }
+}
+
+#subtitle {
+  font-size: 25px;
+  color: #FFF;
+  margin-top: 25px;
+  margin-bottom: 4%;
+  color: white;
+  text-shadow: -1px 0 #da00ff;
+  /*text-shadow: #00c6ff 1px 0 10px;*/
+}
+
+@media (min-width: 768px) {
+  #subtitle {
+    font-size: 50px;
+    margin-top: 20px;
+    margin-bottom: 0px;
+    text-shadow: -2px 0 #da00ff;
   }
 }
 
@@ -216,7 +240,7 @@ section {
 }
 
 .brand-logo {
-  padding-top: 2rem;
+  padding-top: 1rem;
   padding-bottom: 1rem;
 }
 
@@ -230,7 +254,7 @@ section {
 
 @media (min-width: 768px) {
   .brand-logo {
-    padding-top: 3rem;
+    padding-top: 2rem;
     padding-bottom: 2rem;
   }
 
@@ -426,7 +450,7 @@ header.masthead h1 {
 }
 
 #proj_desc {
-  font-size: 18px;
+  font-size: 17px;
   color: #FFF;
 }
 
