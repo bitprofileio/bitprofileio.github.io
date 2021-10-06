@@ -102,6 +102,16 @@ body {
   }
 }
 
+#email_section {
+  padding-top: 50px;
+}
+
+@media (min-width: 768px) {
+  #email_section {
+    padding-top: 70px;
+  }
+}
+
 .fa {
   padding: 20px;
   font-size: 30px;
