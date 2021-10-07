@@ -486,13 +486,13 @@ header.masthead h1 {
   }
 }
 
-#proj_desc {
+.proj_desc {
   font-size: 17px;
   color: #FFF;
 }
 
 @media (min-width: 768px) {
-  #proj_desc {
+  .proj_desc {
     font-size: 22px;
   }
 }
