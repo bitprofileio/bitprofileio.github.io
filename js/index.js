@@ -83,6 +83,53 @@ function joinWaitlist() {
   xmlHttpUpdate.send(null);
 }
 
+async function joinWaitlistWallet() {
+  await web3Modal.clearCachedProvider()
+  console.log("Opening a dialog", web3Modal);
+  try {
+    provider = await web3Modal.connect();
+
+    const web3 = new Web3(provider);
+    const accounts = await web3.eth.getAccounts();
+    if (accounts !== null) {
+      console.log(accounts[0])
+    }
+  } catch(e) {
+    console.log("Could not get a wallet connection", e);
+    return;
+  }
+
+  // Get a Web3 instance for the wallet
+  const web3 = new Web3(provider);
+  const accounts = await web3.eth.getAccounts();
+  ethaddress = accounts[0];
+
+  if (!(ethaddress != null && ethaddress != undefined && ethaddress != "")) {
+    alert("Ethereum wallet not valid")
+    return;
+  }
+
+  const urlParams = new URLSearchParams(window.location.search);
+  var ref = urlParams.get('r');
+  if (ref == null || ref == undefined) {
+    ref = ""
+  }
+  const email = ethaddress;
+  var update_url = "https://us-central1-bitprofile-f37a0.cloudfunctions.net/joinWaitlist?email=" + email + "&ref=" + ref
+  var xmlHttpUpdate = new XMLHttpRequest();
+  xmlHttpUpdate.onreadystatechange = function() {
+    if (xmlHttpUpdate.readyState == 4 && xmlHttpUpdate.status == 200){
+      const json = JSON.parse(xmlHttpUpdate.responseText);
+      if (json.status == "success") {
+        const uid = json.ref_uid;
+        window.location.href = "finish/?uid=" + uid
+      }
+    }
+  }
+  xmlHttpUpdate.open("GET", update_url, true);
+  xmlHttpUpdate.send(null);
+}
+
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
@@ -111,6 +158,7 @@ window.addEventListener('load', async () => {
   init();
   setLineCounter();
   document.querySelector("#email_button").addEventListener("click", joinWaitlist);
+  document.querySelector("#address_button").addEventListener("click", joinWaitlistWallet);
 });
 
 
