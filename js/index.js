@@ -62,81 +62,72 @@ async function init() {
 }
 
 function joinWaitlist() {
-  var x = getCookie('hasSent');
-  if (true) {
-    const urlParams = new URLSearchParams(window.location.search);
-    var ref = urlParams.get('r');
-    if (ref == null || ref == undefined) {
-      ref = ""
-    }
-    const email = document.getElementById("email_field").value;
-    var update_url = "https://us-central1-bitprofile-f37a0.cloudfunctions.net/joinWaitlist?email=" + email + "&ref=" + ref
-    var xmlHttpUpdate = new XMLHttpRequest();
-    xmlHttpUpdate.onreadystatechange = function() {
-      if (xmlHttpUpdate.readyState == 4 && xmlHttpUpdate.status == 200){
-        const json = JSON.parse(xmlHttpUpdate.responseText);
-        if (json.status == "success") {
-          const uid = json.ref_uid;
-          window.location.href = "finish/?uid=" + uid
-        }
+  const urlParams = new URLSearchParams(window.location.search);
+  var ref = urlParams.get('r');
+  if (ref == null || ref == undefined) {
+    ref = ""
+  }
+  const email = document.getElementById("email_field").value;
+  var update_url = "https://us-central1-bitprofile-f37a0.cloudfunctions.net/joinWaitlist?email=" + email + "&ref=" + ref
+  var xmlHttpUpdate = new XMLHttpRequest();
+  xmlHttpUpdate.onreadystatechange = function() {
+    if (xmlHttpUpdate.readyState == 4 && xmlHttpUpdate.status == 200){
+      const json = JSON.parse(xmlHttpUpdate.responseText);
+      if (json.status == "success") {
+        const uid = json.ref_uid;
+        window.location.href = "finish/?uid=" + uid
       }
     }
-    xmlHttpUpdate.open("GET", update_url, true);
-    xmlHttpUpdate.send(null);
-    setCookie('hasSent','sent',7);
   }
+  xmlHttpUpdate.open("GET", update_url, true);
+  xmlHttpUpdate.send(null);  
 }
 
 async function joinWaitlistWallet() {
-  var x = getCookie('hasSent');
-  // if (!x || x != "sent") {
-  if (true) {  
-    await web3Modal.clearCachedProvider()
-    console.log("Opening a dialog", web3Modal);
-    try {
-      provider = await web3Modal.connect();
+  await web3Modal.clearCachedProvider()
+  console.log("Opening a dialog", web3Modal);
+  try {
+    provider = await web3Modal.connect();
 
-      const web3 = new Web3(provider);
-      const accounts = await web3.eth.getAccounts();
-      if (accounts !== null) {
-        console.log(accounts[0])
-      }
-    } catch(e) {
-      console.log("Could not get a wallet connection", e);
-      return;
-    }
-
-    // Get a Web3 instance for the wallet
     const web3 = new Web3(provider);
     const accounts = await web3.eth.getAccounts();
-    ethaddress = accounts[0];
-
-    if (!(ethaddress != null && ethaddress != undefined && ethaddress != "")) {
-      alert("Ethereum wallet not valid")
-      return;
+    if (accounts !== null) {
+      console.log(accounts[0])
     }
+  } catch(e) {
+    console.log("Could not get a wallet connection", e);
+    return;
+  }
 
-    const urlParams = new URLSearchParams(window.location.search);
-    var ref = urlParams.get('r');
-    if (ref == null || ref == undefined) {
-      ref = ""
-    }
-    const email = ethaddress;
-    var update_url = "https://us-central1-bitprofile-f37a0.cloudfunctions.net/joinWaitlist?email=" + email + "&ref=" + ref
-    var xmlHttpUpdate = new XMLHttpRequest();
-    xmlHttpUpdate.onreadystatechange = function() {
-      if (xmlHttpUpdate.readyState == 4 && xmlHttpUpdate.status == 200){
-        const json = JSON.parse(xmlHttpUpdate.responseText);
-        if (json.status == "success") {
-          const uid = json.ref_uid;
-          window.location.href = "finish/?uid=" + uid
-        }
+  // Get a Web3 instance for the wallet
+  const web3 = new Web3(provider);
+  const accounts = await web3.eth.getAccounts();
+  ethaddress = accounts[0];
+
+  if (!(ethaddress != null && ethaddress != undefined && ethaddress != "")) {
+    alert("Ethereum wallet not valid")
+    return;
+  }
+
+  const urlParams = new URLSearchParams(window.location.search);
+  var ref = urlParams.get('r');
+  if (ref == null || ref == undefined) {
+    ref = ""
+  }
+  const email = ethaddress;
+  var update_url = "https://us-central1-bitprofile-f37a0.cloudfunctions.net/joinWaitlist?email=" + email + "&ref=" + ref
+  var xmlHttpUpdate = new XMLHttpRequest();
+  xmlHttpUpdate.onreadystatechange = function() {
+    if (xmlHttpUpdate.readyState == 4 && xmlHttpUpdate.status == 200){
+      const json = JSON.parse(xmlHttpUpdate.responseText);
+      if (json.status == "success") {
+        const uid = json.ref_uid;
+        window.location.href = "finish/?uid=" + uid
       }
     }
-    xmlHttpUpdate.open("GET", update_url, true);
-    xmlHttpUpdate.send(null);
-    setCookie('hasSent','sent',7);
   }
+  xmlHttpUpdate.open("GET", update_url, true);
+  xmlHttpUpdate.send(null);
 }
 
 function numberWithCommas(x) {
@@ -169,32 +160,5 @@ window.addEventListener('load', async () => {
   document.querySelector("#email_button").addEventListener("click", joinWaitlist);
   document.querySelector("#address_button").addEventListener("click", joinWaitlistWallet);
 });
-
-
-
-function setCookie(name,value,days) {
-    var expires = "";
-    if (days) {
-        var date = new Date();
-        date.setTime(date.getTime() + (days*24*60*60*1000));
-        expires = "; expires=" + date.toUTCString();
-    }
-    document.cookie = name + "=" + (value || "")  + expires + "; path=/";
-}
-function getCookie(name) {
-    var nameEQ = name + "=";
-    var ca = document.cookie.split(';');
-    for(var i=0;i < ca.length;i++) {
-        var c = ca[i];
-        while (c.charAt(0)==' ') c = c.substring(1,c.length);
-        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
-    }
-    return null;
-}
-
-
-
-
-
 
 
