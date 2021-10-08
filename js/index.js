@@ -63,7 +63,7 @@ async function init() {
 
 function joinWaitlist() {
   var x = getCookie('hasSent');
-  if (!x || x != "sent") {
+  if (true) {
     const urlParams = new URLSearchParams(window.location.search);
     var ref = urlParams.get('r');
     if (ref == null || ref == undefined) {
@@ -84,12 +84,13 @@ function joinWaitlist() {
     xmlHttpUpdate.open("GET", update_url, true);
     xmlHttpUpdate.send(null);
     setCookie('hasSent','sent',7);
-  } 
+  }
 }
 
 async function joinWaitlistWallet() {
   var x = getCookie('hasSent');
-  if (!x || x != "sent") {
+  // if (!x || x != "sent") {
+  if (true) {  
     await web3Modal.clearCachedProvider()
     console.log("Opening a dialog", web3Modal);
     try {
